@@ -2,9 +2,9 @@ package parser
 
 import (
 	"errors"
-	"github.com/nmeum/cpod/feed"
-	"github.com/nmeum/cpod/feed/atom"
-	"github.com/nmeum/cpod/feed/rss"
+	"github.com/nmeum/freedie/feed"
+	"github.com/nmeum/freedie/feed/atom"
+	"github.com/nmeum/freedie/feed/rss"
 	"io/ioutil"
 	"net/http"
 	"sort"

@@ -2,7 +2,7 @@ package atom
 
 import (
 	"encoding/xml"
-	"github.com/nmeum/cpod/feed"
+	"github.com/nmeum/freddie/feed"
 )
 
 type Feed struct {
