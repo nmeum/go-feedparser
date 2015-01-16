@@ -1,10 +1,10 @@
-package parser
+package freddie
 
 import (
 	"errors"
-	"github.com/nmeum/freedie/feed"
-	"github.com/nmeum/freedie/feed/atom"
-	"github.com/nmeum/freedie/feed/rss"
+	"github.com/nmeum/freddie/atom"
+	"github.com/nmeum/freddie/feed"
+	"github.com/nmeum/freddie/rss"
 	"io/ioutil"
 	"net/http"
 	"sort"
@@ -32,7 +32,7 @@ func Parse(url string) (f feed.Feed, err error) {
 	for _, p := range parsers {
 		f, err = p(body)
 		if err == nil {
-			sort.Sort(feed.ByDate(f.Items))
+			sort.Sort(byDate(f.Items))
 			return
 		}
 	}

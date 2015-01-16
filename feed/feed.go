@@ -1,4 +1,4 @@
-package freddie
+package feed
 
 import (
 	"time"
@@ -28,7 +28,7 @@ var dateFormats = []string{
 	"2006-01-02T15:04:05", "2006-01-02T15:04:05Z",
 }
 
-func parseDate(data string) (date time.Time, err error) {
+func ParseDate(data string) (date time.Time, err error) {
 	for _, format := range dateFormats {
 		date, err = time.Parse(format, data)
 		if err == nil {

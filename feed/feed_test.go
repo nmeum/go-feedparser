@@ -1,4 +1,4 @@
-package freddie
+package feed
 
 import (
 	"testing"
