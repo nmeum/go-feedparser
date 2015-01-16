@@ -1,7 +1,6 @@
 package freddie
 
 import (
-	"errors"
 	"github.com/nmeum/freddie/atom"
 	"github.com/nmeum/freddie/feed"
 	"github.com/nmeum/freddie/rss"
@@ -17,7 +16,7 @@ var parsers = []FeedFunc{
 	atom.Parse,
 }
 
-func Parse(url string) (f feed.Feed, err error) {
+func ParseFunc(url string, fn FeedFunc) (f feed.Feed, err error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return
@@ -29,16 +28,21 @@ func Parse(url string) (f feed.Feed, err error) {
 		return
 	}
 
-	for _, p := range parsers {
-		f, err = p(body)
-		if err == nil {
-			sort.Sort(byDate(f.Items))
-			return
-		}
+	f, err = fn(body)
+	if err != nil {
+		return
 	}
 
-	if err != nil {
-		err = errors.New("unknown feed type")
+	sort.Sort(byDate(f.Items))
+	return
+}
+
+func Parse(url string) (f feed.Feed, err error) {
+	for _, p := range parsers {
+		f, err = ParseFunc(url, p)
+		if err == nil {
+			return
+		}
 	}
 
 	return
