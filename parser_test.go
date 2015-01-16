@@ -2,6 +2,7 @@ package freddie
 
 import (
 	"github.com/nmeum/freddie/atom"
+	"github.com/nmeum/freddie/rss"
 	"testing"
 )
 
@@ -10,7 +11,18 @@ type testpair struct {
 	Type string
 }
 
-func TestParseFunc(t *testing.T) {
+func TestParseFunc1(t *testing.T) {
+	feed, err := ParseFunc("http://taz.de/rss.xml", rss.Parse)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if feed.Title != "taz.de - taz.de" {
+		t.Fatalf("Expected %q - got %q", "taz.de - taz.de", feed.Title)
+	}
+}
+
+func TestParseFunc2(t *testing.T) {
 	feed, err := ParseFunc("http://blog.golang.org/feed.atom", atom.Parse)
 	if err != nil {
 		t.Fatal(err)
