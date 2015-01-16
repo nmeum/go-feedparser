@@ -51,7 +51,6 @@ func TestParseFunc2(t *testing.T) {
 func TestParse(t *testing.T) {
 	tests := []testpair{
 		{"http://cyber.law.harvard.edu/rss/examples/rss2sample.xml", "rss"},
-		{"http://www.heise.de/developer/rss/news-atom.xml", "atom"},
 		{"http://blog.case.edu/news/feed.atom", "atom"},
 	}
 
