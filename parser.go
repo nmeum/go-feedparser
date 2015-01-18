@@ -56,7 +56,7 @@ func Parse(url string) (f feed.Feed, err error) {
 	for _, p := range parsers {
 		f, err = ParseFunc(url, p)
 		if err == nil {
-			return
+			break
 		}
 	}
 
