@@ -16,6 +16,7 @@
 package freddie
 
 import (
+	"encoding/xml"
 	"github.com/nmeum/freddie/atom"
 	"github.com/nmeum/freddie/feed"
 	"github.com/nmeum/freddie/rss"
@@ -55,10 +56,19 @@ func ParseFunc(url string, fn FeedFunc) (f feed.Feed, err error) {
 func Parse(url string) (f feed.Feed, err error) {
 	for _, p := range parsers {
 		f, err = ParseFunc(url, p)
-		if err == nil {
+		if err == nil || isParseError(err) {
 			break
 		}
 	}
 
 	return
+}
+
+func isParseError(err error) bool {
+	switch err.(type) {
+	case *xml.TagPathError, *xml.UnmarshalError:
+		return true
+	default:
+		return false
+	}
 }
