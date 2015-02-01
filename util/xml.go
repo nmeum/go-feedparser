@@ -30,7 +30,9 @@ func Unmarshal(data []byte, v interface{}) error {
 
 func charsetReader(c string, r io.Reader) (io.Reader, error) {
 	enc, _ := charset.Lookup(c)
-	if enc != nil && enc != encoding.Nop {
+	if enc == encoding.Nop {
+		return r, nil
+	} else if err != nil {
 		return transform.NewReader(r, enc.NewDecoder()), nil
 	}
 
