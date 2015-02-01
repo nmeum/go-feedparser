@@ -15,11 +15,7 @@
 
 package freddie
 
-import (
-	"github.com/nmeum/freddie/feed"
-)
-
-type byDate []feed.Item
+type byDate []Item
 
 func (b byDate) Len() int {
 	return len(b)

@@ -13,25 +13,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Freddie. If not, see <http://www.gnu.org/licenses/>.
 
-package feed
+package freddie
 
 import (
 	"time"
 )
-
-type Feed struct {
-	Title string
-	Type  string
-	Link  string
-	Items []Item
-}
-
-type Item struct {
-	Title      string
-	Link       string
-	Date       time.Time
-	Attachment string
-}
 
 var dateFormats = []string{
 	"01-02-2006",
@@ -205,7 +191,7 @@ var dateFormats = []string{
 	time.UnixDate,
 }
 
-func ParseDate(data string) (date time.Time, err error) {
+func ParseTime(data string) (date time.Time, err error) {
 	for _, format := range dateFormats {
 		date, err = time.Parse(format, data)
 		if err == nil {

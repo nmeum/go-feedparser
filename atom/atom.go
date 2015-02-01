@@ -17,7 +17,7 @@ package atom
 
 import (
 	"encoding/xml"
-	"github.com/nmeum/freddie/feed"
+	"github.com/nmeum/freddie"
 )
 
 type Feed struct {
@@ -39,26 +39,26 @@ type Link struct {
 	Rel  string `xml:"rel,attr"`
 }
 
-func Parse(data []byte) (f feed.Feed, err error) {
+func Parse(data []byte) (f freddie.Feed, err error) {
 	var atom Feed
 	if err = xml.Unmarshal(data, &atom); err != nil {
 		return
 	}
 
-	f = feed.Feed{
+	f = freddie.Feed{
 		Title: atom.Title,
 		Type:  "atom",
 		Link:  findLink(atom.Links).Href,
 	}
 
 	for _, e := range atom.Entries {
-		item := feed.Item{
+		item := freddie.Item{
 			Title:      e.Title,
 			Link:       findLink(e.Links).Href,
 			Attachment: findAttachment(e.Links).Href,
 		}
 
-		item.Date, err = feed.ParseDate(e.Published)
+		item.Date, err = freddie.ParseTime(e.Published)
 		if err != nil {
 			return
 		}

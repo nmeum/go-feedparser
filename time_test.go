@@ -16,30 +16,19 @@
 package freddie
 
 import (
-	"io"
-	"io/ioutil"
-	"sort"
+	"testing"
 )
 
-type FeedFunc func([]byte) (Feed, error)
+func TestParseDate(t *testing.T) {
+	testFormat := "Thu, 27 Feb 2014 18:46:18 +0100"
+	var timestamp int64 = 1393523178
 
-func Parse(r io.Reader, funcs []FeedFunc) (f Feed, err error) {
-	data, err := ioutil.ReadAll(r)
+	date, err := ParseTime(testFormat)
 	if err != nil {
-		return
+		t.Fatal(err)
 	}
 
-	for _, fn := range funcs {
-		f, err = fn(data)
-		if err == nil {
-			break
-		}
+	if date.Unix() != timestamp {
+		t.Fatalf("Expected %d - got %d", timestamp, date.Unix())
 	}
-
-	if err != nil {
-		return
-	}
-
-	sort.Sort(byDate(f.Items))
-	return
 }

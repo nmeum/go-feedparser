@@ -13,22 +13,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Freddie. If not, see <http://www.gnu.org/licenses/>.
 
-package feed
+package freddie
 
 import (
-	"testing"
+	"time"
 )
 
-func TestParseDate(t *testing.T) {
-	testFormat := "Thu, 27 Feb 2014 18:46:18 +0100"
-	var timestamp int64 = 1393523178
+type Feed struct {
+	Title string
+	Type  string
+	Link  string
+	Items []Item
+}
 
-	date, err := ParseDate(testFormat)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if date.Unix() != timestamp {
-		t.Fatalf("Expected %d - got %d", timestamp, date.Unix())
-	}
+type Item struct {
+	Title      string
+	Link       string
+	Date       time.Time
+	Attachment string
 }
