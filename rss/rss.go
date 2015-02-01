@@ -15,8 +15,8 @@ package rss
 
 import (
 	"encoding/xml"
-	"github.com/nmeum/freddie"
-	"github.com/nmeum/freddie/util"
+	"github.com/nmeum/go-feedparser"
+	"github.com/nmeum/go-feedparser/util"
 )
 
 type Feed struct {
@@ -38,20 +38,20 @@ type Enclosure struct {
 	URL  string `xml:"url,attr"`
 }
 
-func Parse(data []byte) (f freddie.Feed, err error) {
+func Parse(data []byte) (f feedparser.Feed, err error) {
 	var rss Feed
 	if err = xml.Unmarshal(data, &rss); err != nil {
 		return
 	}
 
-	f = freddie.Feed{
+	f = feedparser.Feed{
 		Title: rss.Title,
 		Type:  "rss",
 		Link:  rss.Link,
 	}
 
 	for _, i := range rss.Items {
-		item := freddie.Item{
+		item := feedparser.Item{
 			Title:      i.Title,
 			Link:       i.Link,
 			Attachment: i.Enclosure.URL,

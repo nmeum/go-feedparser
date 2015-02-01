@@ -11,7 +11,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-package freddie
+package feedparser
 
 /*
 	Package freddie implements a simple library for parsing and

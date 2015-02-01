@@ -15,8 +15,8 @@ package atom
 
 import (
 	"encoding/xml"
-	"github.com/nmeum/freddie"
-	"github.com/nmeum/freddie/util"
+	"github.com/nmeum/go-feedparser"
+	"github.com/nmeum/go-feedparser/util"
 )
 
 type Feed struct {
@@ -38,20 +38,20 @@ type Link struct {
 	Rel  string `xml:"rel,attr"`
 }
 
-func Parse(data []byte) (f freddie.Feed, err error) {
+func Parse(data []byte) (f feedparser.Feed, err error) {
 	var atom Feed
 	if err = xml.Unmarshal(data, &atom); err != nil {
 		return
 	}
 
-	f = freddie.Feed{
+	f = feedparser.Feed{
 		Title: atom.Title,
 		Type:  "atom",
 		Link:  findLink(atom.Links).Href,
 	}
 
 	for _, e := range atom.Entries {
-		item := freddie.Item{
+		item := feedparser.Item{
 			Title:      e.Title,
 			Link:       findLink(e.Links).Href,
 			Attachment: findAttachment(e.Links).Href,
