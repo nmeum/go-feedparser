@@ -40,7 +40,7 @@ type Link struct {
 
 func Parse(data []byte) (f feedparser.Feed, err error) {
 	var atom Feed
-	if err = xml.Unmarshal(data, &atom); err != nil {
+	if err = util.Unmarshal(data, &atom); err != nil {
 		return
 	}
 

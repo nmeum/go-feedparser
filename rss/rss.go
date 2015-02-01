@@ -40,7 +40,7 @@ type Enclosure struct {
 
 func Parse(data []byte) (f feedparser.Feed, err error) {
 	var rss Feed
-	if err = xml.Unmarshal(data, &rss); err != nil {
+	if err = util.Unmarshal(data, &rss); err != nil {
 		return
 	}
 
