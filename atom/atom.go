@@ -18,6 +18,7 @@ package atom
 import (
 	"encoding/xml"
 	"github.com/nmeum/freddie"
+	"github.com/nmeum/freddie/util"
 )
 
 type Feed struct {
@@ -58,7 +59,7 @@ func Parse(data []byte) (f freddie.Feed, err error) {
 			Attachment: findAttachment(e.Links).Href,
 		}
 
-		item.Date, err = freddie.ParseTime(e.Published)
+		item.Date, err = util.ParseTime(e.Published)
 		if err != nil {
 			return
 		}

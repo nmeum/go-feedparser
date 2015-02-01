@@ -18,6 +18,7 @@ package rss
 import (
 	"encoding/xml"
 	"github.com/nmeum/freddie"
+	"github.com/nmeum/freddie/util"
 )
 
 type Feed struct {
@@ -58,7 +59,7 @@ func Parse(data []byte) (f freddie.Feed, err error) {
 			Attachment: i.Enclosure.URL,
 		}
 
-		item.Date, err = freddie.ParseTime(i.PubDate)
+		item.Date, err = util.ParseTime(i.PubDate)
 		if err != nil {
 			panic(err)
 		}
