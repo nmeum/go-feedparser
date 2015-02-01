@@ -16,8 +16,13 @@
 package freddie
 
 import (
+	"io"
+	"io/ioutil"
+	"sort"
 	"time"
 )
+
+type FeedFunc func([]byte) (Feed, error)
 
 type Feed struct {
 	Title string
@@ -31,4 +36,31 @@ type Item struct {
 	Link       string
 	Date       time.Time
 	Attachment string
+}
+
+type byDate []Item
+
+func (b byDate) Len() int           { return len(b) }
+func (b byDate) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
+func (b byDate) Less(i, j int) bool { return b[i].Date.After(b[j].Date) }
+
+func Parse(r io.Reader, funcs []FeedFunc) (f Feed, err error) {
+	data, err := ioutil.ReadAll(r)
+	if err != nil {
+		return
+	}
+
+	for _, fn := range funcs {
+		f, err = fn(data)
+		if err == nil {
+			break
+		}
+	}
+
+	if err != nil {
+		return
+	}
+
+	sort.Sort(byDate(f.Items))
+	return
 }
