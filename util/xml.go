@@ -32,7 +32,7 @@ func charsetReader(c string, r io.Reader) (io.Reader, error) {
 	enc, _ := charset.Lookup(c)
 	if enc == encoding.Nop {
 		return r, nil
-	} else if err != nil {
+	} else if enc != nil {
 		return transform.NewReader(r, enc.NewDecoder()), nil
 	}
 
