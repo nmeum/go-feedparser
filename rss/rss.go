@@ -59,7 +59,7 @@ func Parse(data []byte) (f feedparser.Feed, err error) {
 
 		item.Date, err = util.ParseTime(i.PubDate)
 		if err != nil {
-			panic(err)
+			return
 		}
 
 		f.Items = append(f.Items, item)
