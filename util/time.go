@@ -17,6 +17,8 @@ import (
 	"time"
 )
 
+// Originally imported from goread <https://github.com/mjibson/goread>
+// File: utils.go, License: MIT
 var dateFormats = []string{
 	"01-02-2006",
 	"01/02/2006",
