@@ -1,5 +1,8 @@
 go-feedparser - Simple and extendible feed parser.
 
+To install, run
+	go get -u github.com/nmeum/go-feedparser
+
 This is a simple yet powerful feed parser. It is easily extendible and
 supports RSS and ATOM feeds. Furthermore it also supports different XML
 encodings using "golang.org/x/text/encoding". The code was originally
