@@ -19,25 +19,46 @@ import (
 	"github.com/nmeum/go-feedparser/util"
 )
 
+// Feed represents an ATOM feed.
 type Feed struct {
+	// XMLName.
 	XMLName xml.Name `xml:"feed"`
-	Title   string   `xml:"title"`
-	Links   []Link   `xml:"link"`
-	Entries []Entry  `xml:"entry"`
+
+	// Feed title.
+	Title string `xml:"title"`
+
+	// Feed links.
+	Links []Link `xml:"link"`
+
+	// Feed entries.
+	Entries []Entry `xml:"entry"`
 }
 
+// Entry represents an ATOM feed entry.
 type Entry struct {
+	// Time the entry was published.
 	Published string `xml:"published"`
-	Title     string `xml:"title"`
-	Links     []Link `xml:"link"`
+
+	// Title of the entry.
+	Title string `xml:"title"`
+
+	// Links for the entry.
+	Links []Link `xml:"link"`
 }
 
+// Link represents an ATOM feed link.
 type Link struct {
+	// Link type.
 	Type string `xml:"type,attr"`
+
+	// Actually link location.
 	Href string `xml:"href,attr"`
-	Rel  string `xml:"rel,attr"`
+
+	// Link rel.
+	Rel string `xml:"rel,attr"`
 }
 
+// Parse parses an ATOM feed. It implements feedparser.FeedFunc.
 func Parse(data []byte) (f feedparser.Feed, err error) {
 	var atom Feed
 	if err = util.Unmarshal(data, &atom); err != nil {
@@ -68,6 +89,9 @@ func Parse(data []byte) (f feedparser.Feed, err error) {
 	return
 }
 
+// findLink attempts to find the most relevant link. This is necessary
+// because the generic feedparser.Feed struct doesn't support more than
+// one link.
 func findLink(links []Link) Link {
 	var score int
 	var match Link
@@ -93,6 +117,7 @@ func findLink(links []Link) Link {
 	return match
 }
 
+// findLink attempts to find a link which represents an attachment.
 func findAttachment(links []Link) Link {
 	for _, link := range links {
 		if link.Rel == "enclosure" {
