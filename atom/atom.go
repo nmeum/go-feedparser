@@ -51,7 +51,7 @@ type Link struct {
 	// Link type.
 	Type string `xml:"type,attr"`
 
-	// Actually link location.
+	// Link URL.
 	Href string `xml:"href,attr"`
 
 	// Link rel.

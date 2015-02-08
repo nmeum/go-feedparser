@@ -19,25 +19,46 @@ import (
 	"github.com/nmeum/go-feedparser/util"
 )
 
+// Feed represents an RSS feed.
 type Feed struct {
+	// XMLName.
 	XMLName xml.Name `xml:"rss"`
-	Title   string   `xml:"channel>title"`
-	Link    string   `xml:"channel>link"`
-	Items   []Item   `xml:"channel>item"`
+
+	// Feed Title.
+	Title string `xml:"channel>title"`
+
+	// Link for the feed.
+	Link string `xml:"channel>link"`
+
+	// Feed items.
+	Items []Item `xml:"channel>item"`
 }
 
+// Item represents an RSS item.
 type Item struct {
-	PubDate   string    `xml:"pubDate"`
-	Title     string    `xml:"title"`
-	Link      string    `xml:"link"`
+	// Time the Item was published.
+	PubDate string `xml:"pubDate"`
+
+	// Item title.
+	Title string `xml:"title"`
+
+	// Link for the Item.
+	Link string `xml:"link"`
+
+	// Enclosure for the Item.
 	Enclosure Enclosure `xml:"enclosure"`
 }
 
+// Enclosure represents an RSS enclosure.
 type Enclosure struct {
+	// Enclosure type.
 	Type string `xml:"type,attr"`
-	URL  string `xml:"url,attr"`
+
+	// Enclosure URL.
+	URL string `xml:"url,attr"`
 }
 
+// Parse parses an RSS feed. It implements feedparser.FeedFunc.
 func Parse(data []byte) (f feedparser.Feed, err error) {
 	var rss Feed
 	if err = util.Unmarshal(data, &rss); err != nil {
