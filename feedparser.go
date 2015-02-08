@@ -20,28 +20,54 @@ import (
 	"time"
 )
 
+// FeedFunc describes a function which implements a feed parser,
+// a FeedFunc should take a byte slice as an argument and should return
+// a generic Feed struct and and error, if the error is nil it is
+// assumed that the feed was parsed successfully.
 type FeedFunc func([]byte) (Feed, error)
 
+// Feed represents a generic feed.
 type Feed struct {
+	// The feed title.
 	Title string
-	Type  string
-	Link  string
+
+	// The feed type, should be the name of the feed standard.
+	// For example "atom" or "rss".
+	Type string
+
+	// The feed link.
+	Link string
+
+	// Feed items.
 	Items []Item
 }
 
+// Item represents generic feed items.
 type Item struct {
-	Title      string
-	Link       string
-	Date       time.Time
+	// Title of the item.
+	Title string
+
+	// Link for the item.
+	Link string
+
+	// Time the item was created.
+	Date time.Time
+
+	// Attachment (if any).
 	Attachment string
 }
 
+// byDate sorts a generic Item slice by the time there were published.
 type byDate []Item
 
+// Functions below are required to implement sort.Interface.
 func (b byDate) Len() int           { return len(b) }
 func (b byDate) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
 func (b byDate) Less(i, j int) bool { return b[i].Date.After(b[j].Date) }
 
+// Parse parses the content of the given reader. It invokes each
+// given FeedFunc and if a FeedFunc returns no error the yielded feed
+// is returned.
 func Parse(r io.Reader, funcs []FeedFunc) (f Feed, err error) {
 	data, err := ioutil.ReadAll(r)
 	if err != nil {
