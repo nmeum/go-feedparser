@@ -11,7 +11,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-package feedparser
+package util
 
 /*
 Package util implements common utilities for implementing a FeedFunc.
