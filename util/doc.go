@@ -15,4 +15,7 @@ package feedparser
 
 /*
 Package util implements common utilities for implementing a FeedFunc.
+
+At the moment a function for parsing dates without knowing the date
+format and a function for parsing non-utf8 xml documents are provided.
 */
