@@ -76,4 +76,8 @@ directly. Consider the following example for an ATOM feed:
 The ATOM and RSS FeedFuncs can also be used to create ATOM / RSS feeds.
 However, this does not apply to all FeedFuncs and is therefore
 documented in the ATOM / RSS packages.
+
+If you want to implement your own FeedFunc take a look at the util
+subpackage. An example FeedFunc can be found in the ATOM and RSS
+subpackages.
 */
