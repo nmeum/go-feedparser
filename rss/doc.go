@@ -15,4 +15,25 @@ package feedparser
 
 /*
 Package rss implements a FeedFunc for RSS feeds.
+
+This package can also be used to create RSS feeds. Consider the
+following example to do so:
+
+	items := []rss.Item{
+		{"Monday, January 2, 2006 15:04:05 MST", "Bar", "http://example.org/bar", ""},
+		{"Monday, August 9, 2012 11:02:23 MST", "Foo", "http://example.org/foo", ""},
+	}
+
+	feed := rss.Feed{
+		Title: "Foobar",
+		Link: "http://example.org",
+		Items: items,
+	}
+
+	output, err := xml.MarshalIndent(feed, "  ", "    ")
+	if err != nil {
+		panic(err)
+	}
+
+	os.Stdout.Write(output)
 */
