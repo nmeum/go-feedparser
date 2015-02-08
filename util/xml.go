@@ -22,12 +22,16 @@ import (
 	"io"
 )
 
+// Unmarshal unmarshals an xml document to the given interface.
+// It uses a custom charsetReader and therefore supports non-utf8
+// xml encodings.
 func Unmarshal(data []byte, v interface{}) error {
 	decoder := xml.NewDecoder(bytes.NewReader(data))
 	decoder.CharsetReader = charsetReader
 	return decoder.Decode(v)
 }
 
+// charsetReader converts non-utf8 readers to utf8.
 func charsetReader(c string, r io.Reader) (io.Reader, error) {
 	enc, _ := charset.Lookup(c)
 	if enc == encoding.Nop {

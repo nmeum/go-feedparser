@@ -191,6 +191,8 @@ var dateFormats = []string{
 	time.UnixDate,
 }
 
+// ParseTime tries to parse the given string as a date by trying
+// various date Formats.
 func ParseTime(data string) (date time.Time, err error) {
 	for _, format := range dateFormats {
 		date, err = time.Parse(format, data)
