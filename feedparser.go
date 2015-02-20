@@ -65,9 +65,8 @@ func (b byDate) Len() int           { return len(b) }
 func (b byDate) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
 func (b byDate) Less(i, j int) bool { return b[i].Date.After(b[j].Date) }
 
-// Parse parses the content of the given reader. It invokes each
-// given FeedFunc and if a FeedFunc returns no error the yielded feed
-// is returned.
+// Parse parses the given reader. It invokes each given FeedFunc and if
+// a FeedFunc returns no error the yielded feed is returned.
 func Parse(r io.Reader, funcs []FeedFunc) (f Feed, err error) {
 	data, err := ioutil.ReadAll(r)
 	if err != nil {
