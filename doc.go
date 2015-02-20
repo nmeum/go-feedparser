@@ -11,8 +11,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-package feedparser
-
 /*
 Package freddie implements a simple library for parsing feeds.
 
@@ -81,3 +79,4 @@ If you want to implement your own FeedFunc take a look at the util
 subpackage. An example FeedFunc can be found in the ATOM and RSS
 subpackages.
 */
+package feedparser
