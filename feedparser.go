@@ -22,7 +22,7 @@ import (
 
 // FeedFunc describes a function which implements a feed parser,
 // a FeedFunc should take a byte slice as an argument and should return
-// a generic Feed struct and and error, if the error is nil it is
+// a generic Feed struct and and error. If the error is nil it is
 // assumed that the feed was parsed successfully.
 type FeedFunc func([]byte) (Feed, error)
 
