@@ -12,7 +12,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /*
-Package freddie implements a simple library for parsing feeds.
+Package go-feedparser implements a simple library for parsing feeds.
 
 The only function of direct interest is probably the Parse function
 besides an arbitrary byte slice it also requires a FeedFunc as an
