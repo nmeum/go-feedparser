@@ -11,8 +11,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-package rss
-
 /*
 Package rss implements a FeedFunc for RSS feeds.
 
@@ -37,3 +35,4 @@ following example to do so:
 
 	os.Stdout.Write(output)
 */
+package rss
