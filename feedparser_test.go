@@ -2,8 +2,7 @@ package feedparser
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 )
@@ -21,18 +20,14 @@ func testParser(data []byte) (f Feed, err error) {
 }
 
 func TestParse(t *testing.T) {
-	fp := filepath.Join("testdata", "testParse.txt")
-	file, err := os.Open(fp)
+	expected := "Hello World!"
+	reader := strings.NewReader(expected)
+
+	feed, err := Parse(reader, parsers)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	feed, err := Parse(file, parsers)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	expected := "Hello World!\n"
 	if feed.Title != expected {
 		t.Fatalf("Expected %q - got %q", expected, feed.Title)
 	}
