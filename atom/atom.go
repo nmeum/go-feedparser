@@ -109,7 +109,7 @@ func findLink(links []Link) Link {
 		case score < 1 && link.Rel == "":
 			score = 1
 			match = link
-		case match == nil:
+		case &match == nil:
 			match = link
 		}
 	}
