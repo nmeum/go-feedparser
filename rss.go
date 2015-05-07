@@ -208,7 +208,7 @@ type RssSource struct {
 // RssHour represents the hour tag, a subelement of the skipHours tag.
 type RssHour struct {
 	// Number between 0 and 23 representing time in GMT (required).
-	Hour string `xml:"hour"`
+	Hour int `xml:"hour"`
 }
 
 // RssDay represents the day tag, a subelement of the skipDays tag.
