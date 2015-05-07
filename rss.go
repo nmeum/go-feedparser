@@ -109,7 +109,7 @@ type RssItem struct {
 	Comments string `xml:"comments"`
 
 	// Media object that is attached to the item (optional).
-	Enclosure string `xml:"enclosure"`
+	Enclosure RssEnclosure `xml:"enclosure"`
 
 	// String that uniquely identifies the item (optional).
 	GUID string `xml:"guid"`
@@ -119,6 +119,18 @@ type RssItem struct {
 
 	// The RSS channel the item came from (optional).
 	Source RssSource `xml:"source"`
+}
+
+// RssEnclosure represents an rss enclosure.
+type RssEnclosure struct {
+	// Where the enclosure is located (required).
+	URL string `xml:"url,attr"`
+
+	// Size of the enclosure in bytes (required).
+	Length string `xml:"length,attr"`
+
+	// MIME type of the enclosure (required).
+	Type string `xml:"type,attr"`
 }
 
 // RssImage represents an rss image.
@@ -240,7 +252,7 @@ func parseRss(data []byte) (f Feed, err error) {
 			Title:      entry.Title,
 			Link:       entry.Link,
 			Content:    entry.Description,
-			Attachment: entry.Enclosure,
+			Attachment: entry.Enclosure.URL,
 			Author:     entry.Author,
 		}
 
