@@ -64,7 +64,7 @@ type Feed struct {
 	Rights string
 
 	// Feed Items
-	Items []*Item
+	Items []Item
 }
 
 // Item represents a generic feed item.

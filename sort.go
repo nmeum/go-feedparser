@@ -16,7 +16,7 @@ package feedparser
 // byDate sorts a generic Item slice by the items date attribute thus
 // sorting the items by the date they were published. It implements the
 // sort.Interface interface.
-type byDate []*Item
+type byDate []Item
 
 func (b byDate) Len() int {
 	return len(b)
