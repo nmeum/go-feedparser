@@ -223,9 +223,11 @@ func parseRss(data []byte) (f Feed, err error) {
 		Author:      origFeed.Editor,
 	}
 
-	f.Updated, err = parseTime(origFeed.LastBuildDate)
-	if err != nil {
-		return
+	if len(origFeed.LastBuildDate) > 0 {
+		f.Updated, err = parseTime(origFeed.LastBuildDate)
+		if err != nil {
+			return
+		}
 	}
 
 	for _, category := range origFeed.Categories {
