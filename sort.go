@@ -11,22 +11,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-package util
+package feedparser
 
-import (
-	"testing"
-)
+// byDate sorts a generic Item slice by the items date attribute thus
+// sorting the items by the date they were published. It implements the
+// sort.Interface interface.
+type byDate []*Item
 
-func TestParseDate(t *testing.T) {
-	testFormat := "Thu, 27 Feb 2014 18:46:18 +0100"
-	var timestamp int64 = 1393523178
+func (b byDate) Len() int {
+	return len(b)
+}
 
-	date, err := ParseTime(testFormat)
-	if err != nil {
-		t.Fatal(err)
-	}
+func (b byDate) Swap(i, j int) {
+	b[i], b[j] = b[j], b[i]
+}
 
-	if date.Unix() != timestamp {
-		t.Fatalf("Expected %d - got %d", timestamp, date.Unix())
-	}
+func (b byDate) Less(i, j int) bool {
+	return b[i].PubDate.After(b[j].PubDate)
 }

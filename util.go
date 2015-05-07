@@ -10,15 +10,23 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// This is a slightly modified version of 'encoding/xml/read_test.go'.
+// Copyright 2009 The Go Authors. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in
+// the LICENSE file.
 
-package util
+package feedparser
 
 import (
+	"bytes"
+	"encoding/xml"
+	"golang.org/x/net/html/charset"
 	"time"
 )
 
-// Originally imported from goread <https://github.com/mjibson/goread>
-// File: utils.go, License: MIT
+// dateFormats describes multiple possible formats for dates.
+// Originally imported from goread <https://github.com/mjibson/goread>.
 var dateFormats = []string{
 	"01-02-2006",
 	"01/02/2006",
@@ -64,6 +72,7 @@ var dateFormats = []string{
 	"2006-01-02T15:04:05-07:00",
 	"2006-01-02T15:04:05-0700",
 	"2006-01-02T15:04:05:-0700",
+	"2006-01-02T15:04:05-07:00",
 	"2006-01-02T15:04:05-07:00:00",
 	"2006-01-02T15:04:05Z",
 	"2006-01-02T15:04-07:00",
@@ -191,9 +200,18 @@ var dateFormats = []string{
 	time.UnixDate,
 }
 
-// ParseTime tries to parse the given string as a date by trying
+// unmarshal unmarshals an xml document to the given interface.
+// It uses a custom charsetReader and therefore supports non-utf8
+// xml encodings.
+func unmarshal(data []byte, v interface{}) error {
+	decoder := xml.NewDecoder(bytes.NewReader(data))
+	decoder.CharsetReader = charset.NewReaderLabel
+	return decoder.Decode(v)
+}
+
+// parseTime tries to parse the given string as a date by trying
 // various different date formats.
-func ParseTime(data string) (date time.Time, err error) {
+func parseTime(data string) (date time.Time, err error) {
 	for _, format := range dateFormats {
 		date, err = time.Parse(format, data)
 		if err == nil {
