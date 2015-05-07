@@ -9,4 +9,4 @@ encoded feeds. The code was originally imported from cpod
 <https://github.com/nmeum/cpod> and is licensed under GNU GPLv3 (or
 later).
 
-Documentation is missing at the moment, the tests are not completed yet.
+Documentation is missing at the moment and the tests are not completed yet.
