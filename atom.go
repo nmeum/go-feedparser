@@ -230,6 +230,8 @@ func parseAtom(data []byte) (f Feed, err error) {
 		if err != nil {
 			return
 		}
+
+		f.Items = append(f.Items, item)
 	}
 
 	return
