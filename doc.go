@@ -15,7 +15,7 @@
 Package go-feedparser implements a simple RSS and ATOM feed parser.
 
 Tho primary function of interest is the Parse function. You can pass an
-arbitrary Aeader to this function and it will return the corresponding
+arbitrary Reader to this function and it will return the corresponding
 feed. The following demonstrates and example use case (reading a feed
 from a file):
 
