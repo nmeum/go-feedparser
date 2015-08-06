@@ -12,7 +12,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /*
-Package go-feedparser implements a simple RSS and ATOM feed parser.
+Package feedparser implements a simple RSS and ATOM feed parser.
 
 Tho primary function of interest is the Parse function. You can pass an
 arbitrary Reader to this function and it will return the corresponding
